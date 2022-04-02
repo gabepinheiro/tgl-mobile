@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../types'
+
 import {
   Home,
   Account,
@@ -26,10 +28,12 @@ export function AuthStack () {
 export function AuthenticatedStack () {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={Home} />
-      <Stack.Screen name='NewBet' component={NewBet} />
+      <Stack.Group>
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='NewBet' component={NewBet} />
+      </Stack.Group>
 
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group>
         <Stack.Screen name='Account' component={Account} />
         <Stack.Screen name='Cart' component={Cart} />
       </Stack.Group>

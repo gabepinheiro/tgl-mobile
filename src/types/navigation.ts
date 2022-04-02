@@ -1,4 +1,6 @@
-type RootStackParamList = {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
+export type RootStackParamList = {
   Home: undefined
   Account: undefined
   NewBet: undefined
@@ -8,3 +10,6 @@ type RootStackParamList = {
   ResetPassword: undefined
   ChangePassword: undefined
 };
+
+export type AppNavigationProp =
+ NativeStackNavigationProp<RootStackParamList>
