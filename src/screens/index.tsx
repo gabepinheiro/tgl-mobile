@@ -1,0 +1,8 @@
+export { Account } from './account'
+export { Cart } from './cart'
+export { ChangePassword } from './change-password'
+export { Home } from './home'
+export { Login } from './login'
+export { NewBet } from './new-bet'
+export { Resgiter } from './register'
+export { ResetPassword } from './reset-password'
