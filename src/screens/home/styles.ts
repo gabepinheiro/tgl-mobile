@@ -2,15 +2,43 @@ import styled, { css } from 'styled-components/native'
 
 export const Wrapper = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
-`
+  padding: 32px 0 0 22px;
 
-export const Text = styled.Text`
   ${({ theme }) => css`
-    font-family: ${theme.font.regular};
-    color: ${theme.colors.green};
-    font-size: 32px;
-    font-style: italic;
+    background-color: ${theme.colors.mainBg};
   `}
 `
+
+export const Heading = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray600};
+    font-family: ${theme.font.boldItalic};
+    font-size: 20px;
+    text-transform: uppercase;
+  `}
+`
+
+export const WrapperFiltersButtons = styled.View`
+  flex-direction: row;
+  align-items: baseline;
+  margin: 26px 0;
+`
+
+export const FiltersText = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray500};
+    font-family: ${theme.font.regular};
+    font-style: italic;
+    font-size: 16px;
+  `}
+`
+
+export const ButtonsContainer = styled.ScrollView.attrs({
+  horizontal: true,
+  contentContainerStyle: { paddingLeft: 10, paddingRight: 10 },
+  showsHorizontalScrollIndicator: false,
+})``;
+
+export const ButtonItem = styled.View`
+  margin-left: 10px;
+`;
