@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components/native'
-
 import { ReactNode } from "react"
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback
+} from 'react-native'
 
 type Props = {
   children: ReactNode
@@ -9,17 +13,20 @@ type Props = {
 
 export const AuthStackLayout = ({ children, heading }: Props) => {
   return (
-    <Wrapper>
-      <Heading>{heading}</Heading>
-      {children}
-    </Wrapper>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Wrapper>
+        <KeyboardAvoidingView behavior="position" enabled>
+          <Heading>{heading}</Heading>
+          {children}
+        </KeyboardAvoidingView>
+      </Wrapper>
+    </TouchableWithoutFeedback>
   )
 }
 
 const Wrapper = styled.View`
-  margin: 24px;
+  padding: 24px;
   flex: 1;
-  align-items: center;
 `
 
 const Heading = styled.Text`
@@ -27,6 +34,7 @@ const Heading = styled.Text`
     font-family: ${theme.font.boldItalic};
     color: ${theme.colors.gray600};
     font-size: 26px;
+    text-align: center;
   `}
 `
 
