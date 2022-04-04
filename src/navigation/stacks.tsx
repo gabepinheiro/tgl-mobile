@@ -11,6 +11,7 @@ import {
   ChangePassword,
   ResetPassword
 } from '../screens'
+import { CustomHeader } from '../components'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -29,7 +30,13 @@ export function AuthenticatedStack () {
   return (
     <Stack.Navigator>
       <Stack.Group>
-        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen
+          name='Home'
+          component={Home}
+          options={{
+            header: () => <CustomHeader />
+          }}
+        />
         <Stack.Screen name='NewBet' component={NewBet} />
       </Stack.Group>
 
