@@ -1,6 +1,15 @@
-import { Navigation } from "./navigation";
+import { Navigation } from './navigation'
+
+import AppLoading from 'expo-app-loading'
+import { useFontsLoaded } from './hooks/use-fonts-loaded'
 
 export function Root () {
+  const { fontsLoaded } = useFontsLoaded()
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+
   return (
     <Navigation />
   )
