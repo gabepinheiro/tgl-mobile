@@ -16,7 +16,7 @@ import {
   ResetPassword
 } from '../screens'
 
-import { CustomHeader } from '../components'
+import { CustomHeader, Logo } from '../components'
 
 import { theme } from '../styles/theme'
 
@@ -36,6 +36,8 @@ export function AuthStack () {
       headerStyle: {
         backgroundColor:  theme.colors.white,
       },
+      headerTitle: () => <Logo />,
+      headerTitleAlign: 'center'
     }}>
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='Register' component={Resgiter} />
