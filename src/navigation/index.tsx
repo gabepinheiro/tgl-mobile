@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { AuthenticatedStack } from './stacks'
+import { AuthenticatedStack, AuthStack } from './stacks'
 
 export function Navigation () {
   return (
     <NavigationContainer>
-      <AuthenticatedStack />
+      <AuthStack />
+      {/* <AuthenticatedStack /> */}
     </NavigationContainer>
   )
 }

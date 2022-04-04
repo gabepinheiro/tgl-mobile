@@ -1,4 +1,8 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationOptions
+} from '@react-navigation/native-stack'
+
 import { RootStackParamList } from '../types'
 
 import {
@@ -11,13 +15,28 @@ import {
   ChangePassword,
   ResetPassword
 } from '../screens'
+
 import { CustomHeader } from '../components'
+
+import { theme } from '../styles/theme'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
+const screenCustomOptionsDefault: NativeStackNavigationOptions = {
+  headerStyle: {
+    backgroundColor:  theme.colors.green,
+  },
+  headerShadowVisible: false
+}
+
 export function AuthStack () {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      ...screenCustomOptionsDefault,
+      headerStyle: {
+        backgroundColor:  theme.colors.white,
+      },
+    }}>
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='Register' component={Resgiter} />
       <Stack.Screen name='ResetPassword' component={ResetPassword} />
@@ -28,7 +47,7 @@ export function AuthStack () {
 
 export function AuthenticatedStack () {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={screenCustomOptionsDefault}>
       <Stack.Group>
         <Stack.Screen
           name='Home'
@@ -40,7 +59,7 @@ export function AuthenticatedStack () {
         <Stack.Screen name='NewBet' component={NewBet} />
       </Stack.Group>
 
-      <Stack.Group>
+      <Stack.Group screenOptions={{ title: ''}}>
         <Stack.Screen name='Account' component={Account} />
         <Stack.Screen name='Cart' component={Cart} />
       </Stack.Group>
