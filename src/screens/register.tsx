@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { AuthStackLayout } from '../layout'
 
 export function Resgiter () {
   return (
-    <View>
-      <Text>Resgiter Screen</Text>
-    </View>
+    <AuthStackLayout heading='Registration'>
+      <View />
+    </AuthStackLayout>
   )
 }

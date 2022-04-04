@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { AuthStackLayout } from '../layout'
 
 export function ResetPassword () {
   return (
-    <View>
-      <Text>Reset Password Screen</Text>
-    </View>
+    <AuthStackLayout heading='Reset Password'>
+      <View />
+    </AuthStackLayout>
   )
 }

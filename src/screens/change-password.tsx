@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import { AuthStackLayout } from '../layout'
 
 export function ChangePassword () {
   return (
-    <View>
-      <Text>Change Password Screen</Text>
-    </View>
+    <AuthStackLayout heading='Change Password'>
+      <View />
+    </AuthStackLayout>
   )
 }

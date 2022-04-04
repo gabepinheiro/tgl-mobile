@@ -1,9 +1,11 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+
+import { AuthStackLayout } from '../layout'
 
 export function Login () {
   return (
-    <View>
-      <Text>Login Screen</Text>
-    </View>
+    <AuthStackLayout heading='Authentication'>
+      <View />
+    </AuthStackLayout>
   )
 }
