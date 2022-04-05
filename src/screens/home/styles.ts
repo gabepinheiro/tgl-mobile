@@ -35,7 +35,10 @@ export const FiltersText = styled.Text`
 
 export const ButtonsContainer = styled.ScrollView.attrs({
   horizontal: true,
-  contentContainerStyle: { paddingLeft: 10, paddingRight: 10 },
+  contentContainerStyle: {
+    paddingHorizontal: 10,
+    paddingTop: 8,
+   },
   showsHorizontalScrollIndicator: false,
 })``;
 
