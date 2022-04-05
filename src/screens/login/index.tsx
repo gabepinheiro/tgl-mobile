@@ -1,14 +1,11 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types';
+import { RootStackParamList } from '~/types'
 
-import { AuthStackLayout } from '../../layout'
-import { FormContainer } from '../../components/'
-import { Input } from '../../components/'
-import { ButtonLink } from '../../components/button-link'
+import { AuthStackLayout } from '~/layouts'
+import { FormContainer, Input, ButtonLink, Center } from '~/components'
 import { Feather } from '@expo/vector-icons'
-import { Center } from '../../components/utils'
 
-import { theme } from '../../styles/theme'
+import { theme } from '~/styles'
 import * as S from './styles'
 
 type LoginProps =

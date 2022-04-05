@@ -1,4 +1,4 @@
-import { GameButton } from '../../components/game-button'
+import { GameButton } from '~/components'
 import * as S from './styles'
 
 export function Home () {

@@ -3,7 +3,7 @@ import {
   NativeStackNavigationOptions
 } from '@react-navigation/native-stack'
 
-import { RootStackParamList } from '../types'
+import { RootStackParamList } from '~/types'
 
 import {
   Home,
@@ -14,11 +14,11 @@ import {
   Resgiter,
   ChangePassword,
   ResetPassword
-} from '../screens'
+} from '~/screens'
 
-import { CustomHeader, Logo } from '../components'
+import { CustomHeader, Logo } from '~/components'
 
-import { theme } from '../styles/theme'
+import { theme } from '~/styles'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 

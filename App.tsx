@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar'
-import { Root } from './src/root'
+import { Root } from '~/root'
 
 import { ThemeProvider } from 'styled-components/native'
-import { theme } from './src/styles/theme'
+import { theme } from '~/styles'
 
 export default function App() {
   return (
