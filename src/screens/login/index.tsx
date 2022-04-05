@@ -3,6 +3,7 @@ import { FormContainer } from '../../components/'
 import { Input } from '../../components/'
 import { ButtonLink } from '../../components/button-link'
 import { Feather } from '@expo/vector-icons'
+import { Center } from '../../components/utils'
 
 import { theme } from '../../styles/theme'
 import * as S from './styles'
@@ -21,7 +22,7 @@ export function Login () {
             placeholder='Password'
             secureTextEntry
           />
-          <S.ButtonWrapper>
+          <Center style={{marginVertical: 32}}>
             <ButtonLink
               color='greenLight'
               onPress={() => console.log('Log in')}
@@ -33,22 +34,22 @@ export function Login () {
               >
                 Log In
             </ButtonLink>
-          </S.ButtonWrapper>
+          </Center>
         </FormContainer>
 
-        <S.ButtonWrapper>
-            <ButtonLink
-              color='black'
-              onPress={() => console.log('Sign up')}
-              icon={<Feather
-                name='arrow-right'
-                size={24}
-                color={theme.colors.gray600}
-                />}
-              >
-                Sign Up
-            </ButtonLink>
-          </S.ButtonWrapper>
+        <Center style={{marginVertical: 32}}>
+          <ButtonLink
+            color='black'
+            onPress={() => console.log('Sign up')}
+            icon={<Feather
+              name='arrow-right'
+              size={24}
+              color={theme.colors.gray600}
+              />}
+            >
+              Sign Up
+          </ButtonLink>
+        </Center>
       </S.Container>
     </AuthStackLayout>
   )

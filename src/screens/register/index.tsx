@@ -1,10 +1,10 @@
-import { View } from 'react-native'
 import { FormContainer, Input } from '../../components'
 import { ButtonLink } from '../../components/button-link'
 import { AuthStackLayout } from '../../layout'
 import { Feather } from '@expo/vector-icons'
-import { theme } from '../../styles/theme'
+import { Center } from '../../components/utils'
 
+import { theme } from '../../styles/theme'
 import * as S from './styles'
 
 export function Resgiter () {
@@ -22,7 +22,7 @@ export function Resgiter () {
             placeholder='Password'
             secureTextEntry
           />
-          <S.ButtonWrapper>
+          <Center style={{marginVertical: 32}}>
             <ButtonLink
               color='greenLight'
               onPress={() => console.log('Register')}
@@ -34,10 +34,10 @@ export function Resgiter () {
               >
                 Register
             </ButtonLink>
-          </S.ButtonWrapper>
+          </Center>
         </FormContainer>
 
-        <S.ButtonWrapper>
+        <Center style={{marginVertical: 32}}>
           <ButtonLink
             color='black'
             onPress={() => console.log('Go Back')}
@@ -50,7 +50,7 @@ export function Resgiter () {
             >
               Back
           </ButtonLink>
-        </S.ButtonWrapper>
+        </Center>
       </S.Container>
     </AuthStackLayout>
   )
