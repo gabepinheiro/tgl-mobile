@@ -1,4 +1,3 @@
-import { Text } from 'react-native';
 import { useForm } from 'react-hook-form'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '~/types'
@@ -38,7 +37,7 @@ export function Resgiter ({ navigation }: RegisterProps) {
     navigation.goBack()
   }
 
-  const handleRegister = (data: FormData) => console.log(data.name)
+  const handleRegister = (data: FormData) => console.log(data)
 
   return (
     <AuthStackLayout heading='Registration'>
@@ -47,26 +46,26 @@ export function Resgiter ({ navigation }: RegisterProps) {
           <ControlledInput
             name='name'
             control={control}
+            error={errors.name}
             placeholder='Name'
           />
-          {!!errors.name && <Text>{errors.name.message}</Text>}
 
           <ControlledInput
             name='email'
             control={control}
+            error={errors.email}
             placeholder='Email'
             keyboardType='email-address'
             autoCapitalize='none'
           />
-          {!!errors.email && <Text>{errors.email.message}</Text>}
 
           <ControlledInput
             name='password'
             control={control}
+            error={errors.password}
             placeholder='Password'
             secureTextEntry
           />
-          {!!errors.password && <Text>{errors.password.message}</Text>}
 
           <Center style={{marginVertical: 32}}>
             <ButtonLink
