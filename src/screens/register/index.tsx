@@ -1,6 +1,9 @@
+import { Text } from 'react-native';
 import { useForm } from 'react-hook-form'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '~/types'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 
 import { AuthStackLayout } from '~/layouts'
 
@@ -14,13 +17,22 @@ type RegisterProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
 
 type FormData = {
-  name: string,
-  email: string,
+  name: string
+  email: string
   password: string
 }
 
+const schema = yup.object({
+  name: yup.string().required('Informe o seu nome'),
+  email: yup.string().email('E-mail inválido').required('Informe o e-mail'),
+  password: yup.string().min(6, 'A senha deve ter ao menos 6 dígitos')
+    .required('Informe a senha'),
+});
+
 export function Resgiter ({ navigation }: RegisterProps) {
-  const { control, handleSubmit } = useForm<FormData>()
+  const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
 
   const navigateBackHandler = () => {
     navigation.goBack()
@@ -37,6 +49,8 @@ export function Resgiter ({ navigation }: RegisterProps) {
             control={control}
             placeholder='Name'
           />
+          {!!errors.name && <Text>{errors.name.message}</Text>}
+
           <ControlledInput
             name='email'
             control={control}
@@ -44,12 +58,16 @@ export function Resgiter ({ navigation }: RegisterProps) {
             keyboardType='email-address'
             autoCapitalize='none'
           />
+          {!!errors.email && <Text>{errors.email.message}</Text>}
+
           <ControlledInput
             name='password'
             control={control}
             placeholder='Password'
             secureTextEntry
           />
+          {!!errors.password && <Text>{errors.password.message}</Text>}
+
           <Center style={{marginVertical: 32}}>
             <ButtonLink
               color='greenLight'
