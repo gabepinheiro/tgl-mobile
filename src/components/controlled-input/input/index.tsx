@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components/native'
 
-export const Input = styled.TextInput.attrs(({ theme }) => ({
-  placeholderTextColor: theme.colors.gray400,
-}))`
+export const Input = styled.TextInput`
   width: 100%;
   padding: 24px;
 
