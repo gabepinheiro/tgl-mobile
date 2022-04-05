@@ -26,7 +26,8 @@ const screenCustomOptionsDefault: NativeStackNavigationOptions = {
   headerStyle: {
     backgroundColor:  theme.colors.green,
   },
-  headerShadowVisible: false
+  headerShadowVisible: false,
+  headerTitleAlign: 'center',
 }
 
 export function AuthStack () {
@@ -37,7 +38,7 @@ export function AuthStack () {
         backgroundColor:  theme.colors.white,
       },
       headerTitle: () => <Logo />,
-      headerTitleAlign: 'center'
+      headerBackVisible: false
     }}>
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='Register' component={Resgiter} />
