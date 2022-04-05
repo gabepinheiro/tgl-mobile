@@ -39,8 +39,8 @@ export function AuthStack () {
       headerTitle: () => <Logo />,
       headerTitleAlign: 'center'
     }}>
-      <Stack.Screen name='Register' component={Resgiter} />
       <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='Register' component={Resgiter} />
       <Stack.Screen name='ResetPassword' component={ResetPassword} />
       <Stack.Screen name='ChangePassword' component={ChangePassword} />
     </Stack.Navigator>

@@ -1,3 +1,6 @@
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types';
+
 import { AuthStackLayout } from '../../layout'
 import { FormContainer } from '../../components/'
 import { Input } from '../../components/'
@@ -8,7 +11,14 @@ import { Center } from '../../components/utils'
 import { theme } from '../../styles/theme'
 import * as S from './styles'
 
-export function Login () {
+type LoginProps =
+  NativeStackScreenProps<RootStackParamList, 'Login'>
+
+export function Login ({ navigation }: LoginProps) {
+  const navigateRegisterHandler = () => {
+    navigation.navigate('Register')
+  }
+
   return (
     <AuthStackLayout heading='Authentication'>
       <S.Container>
@@ -25,7 +35,7 @@ export function Login () {
           <Center style={{marginVertical: 32}}>
             <ButtonLink
               color='greenLight'
-              onPress={() => console.log('Log in')}
+              onPress={() => {console.log('Log in')}}
               icon={<Feather
                 name='arrow-right'
                 size={24}
@@ -40,7 +50,7 @@ export function Login () {
         <Center style={{marginVertical: 32}}>
           <ButtonLink
             color='black'
-            onPress={() => console.log('Sign up')}
+            onPress={navigateRegisterHandler}
             icon={<Feather
               name='arrow-right'
               size={24}
