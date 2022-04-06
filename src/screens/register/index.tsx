@@ -8,8 +8,12 @@ import { AuthService } from '~/services/tgl-api'
 
 import { AuthStackLayout } from '~/layouts'
 
-import Toast from 'react-native-root-toast'
-import { FormContainer, ControlledInput, ButtonLink, Center } from '~/components'
+import { FormContainer,
+  ControlledInput,
+  ButtonLink,
+  Center,
+  CustomToast
+} from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
@@ -49,31 +53,14 @@ export function Resgiter ({ navigation }: RegisterProps) {
     try {
       await AuthService.createUser(data)
 
-      Toast.show('Registro realizdo com sucesso.', {
-        position: Toast.positions.TOP,
-        backgroundColor: 'green',
-        textColor: '#fff',
-        opacity: 1,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-      })
-
+      CustomToast.success('Registro realizdo com sucesso.')
       reset()
     } catch (err) {
       const error = err as AxiosError<ErrorResponseData>
 
       if (error.response) {
         const { message } = error.response.data.error
-        return Toast.show(message, {
-          position: Toast.positions.TOP,
-          backgroundColor: 'red',
-          textColor: '#fff',
-          opacity: 1,
-          shadow: true,
-          animation: true,
-          hideOnPress: true,
-        })
+        CustomToast.error(message)
       }
     }
   }

@@ -4,17 +4,23 @@ import { AuthService } from '~/services/tgl-api'
 import { useAppDispatch } from '~/hooks'
 import { setAuthenticatedUser } from '~/store/features/auth-slice'
 import { RootStackParamList } from '~/types'
+import { AxiosError } from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
 
 import { AuthStackLayout } from '~/layouts'
-import { FormContainer, ButtonLink, Center, ControlledInput } from '~/components'
+
+import {
+  FormContainer,
+  ButtonLink,
+  Center,
+  ControlledInput,
+  CustomToast
+} from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
-import Toast from 'react-native-root-toast'
-import { AxiosError } from 'axios'
 
 type LoginProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -49,30 +55,15 @@ export function Login ({ navigation }: LoginProps) {
     try {
       const authUser = await AuthService.login(data)
 
-      Toast.show('Autenticado com sucesso.', {
-        position: Toast.positions.TOP,
-        backgroundColor: 'green',
-        textColor: '#fff',
-        opacity: 1,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-      })
+      CustomToast.success('Autenticado com sucesso.')
 
       dispatch(setAuthenticatedUser(authUser))
     } catch (err) {
       const error = err as AxiosError
 
-      if(error.response)
-        Toast.show(error.response.data.message, {
-          position: Toast.positions.TOP,
-          backgroundColor: 'red',
-          textColor: '#fff',
-          opacity: 1,
-          shadow: true,
-          animation: true,
-          hideOnPress: true,
-        })
+      if(error.response){
+        CustomToast.error(error.response.data.message)
+      }
     }
   }
 
