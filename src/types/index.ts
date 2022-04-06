@@ -1,1 +1,2 @@
-export { AppNavigationProp, RootStackParamList } from './navigation'
+export * from './navigation'
+export * from './app'

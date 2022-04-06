@@ -11,6 +11,8 @@ import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
+import { AuthService } from '~/services/tgl-api'
+import { Alert } from 'react-native'
 
 type RegisterProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -37,7 +39,14 @@ export function Resgiter ({ navigation }: RegisterProps) {
     navigation.goBack()
   }
 
-  const handleRegister = (data: FormData) => console.log(data)
+  const handleRegister = async (data: FormData) => {
+    try {
+      const res = await AuthService.createUser(data)
+      Alert.alert('Registro realizado com sucesso')
+    } catch (error) {
+      Alert.alert('An ocurred error!')
+    }
+  }
 
   return (
     <AuthStackLayout heading='Registration'>
