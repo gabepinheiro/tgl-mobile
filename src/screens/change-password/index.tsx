@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,6 +14,7 @@ import {
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
+import { RootStackParamList } from '~/types'
 
 type FormData = {
   password: string
@@ -27,7 +29,9 @@ const schema = yup.object({
       .oneOf([yup.ref('password')], 'As senhas não correspondem.'),
 })
 
-export function ChangePassword () {
+type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword'>
+
+export function ChangePassword ({ navigation, route }: Props) {
   const {
     control,
     handleSubmit,
