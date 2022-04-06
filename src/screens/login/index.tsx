@@ -13,6 +13,8 @@ import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
+import Toast from 'react-native-root-toast'
+import { AxiosError } from 'axios'
 
 type LoginProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -46,9 +48,31 @@ export function Login ({ navigation }: LoginProps) {
   const loginUserHandler = async (data: FormData) => {
     try {
       const authUser = await AuthService.login(data)
+
+      Toast.show('Autenticado com sucesso.', {
+        position: Toast.positions.TOP,
+        backgroundColor: 'green',
+        textColor: '#fff',
+        opacity: 1,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+      })
+
       dispatch(setAuthenticatedUser(authUser))
     } catch (err) {
+      const error = err as AxiosError
 
+      if(error.response)
+        Toast.show(error.response.data.message, {
+          position: Toast.positions.TOP,
+          backgroundColor: 'red',
+          textColor: '#fff',
+          opacity: 1,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+        })
     }
   }
 
