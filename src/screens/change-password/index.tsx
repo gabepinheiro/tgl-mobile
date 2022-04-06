@@ -1,7 +1,9 @@
+import { RootStackParamList } from '~/types'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { AuthService } from '~/services/tgl-api'
 
 import { AuthStackLayout } from '~/layouts'
 
@@ -9,12 +11,12 @@ import {
   ButtonLink,
   Center,
   ControlledInput,
+  CustomToast,
   FormContainer
 } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
-import { RootStackParamList } from '~/types'
 
 type FormData = {
   password: string
@@ -32,14 +34,29 @@ const schema = yup.object({
 type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword'>
 
 export function ChangePassword ({ navigation, route }: Props) {
+  const { code } = route.params
+
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(schema) })
 
-  const changePasswordHandler = (data:FormData) => {
+  const changePasswordHandler = async ({ password }:FormData) => {
+    try {
+      const res = await AuthService.changePassword({
+        newPassword: password,
+        code
+      })
 
+      if (res.ok) {
+        navigation.replace('Login')
+        CustomToast.success('Senha alterada com sucesso!')
+      }
+
+    } catch (error) {
+
+    }
   }
 
   return (
