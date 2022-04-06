@@ -1,7 +1,10 @@
-import { RootStackParamList } from '~/types'
+import { useForm } from 'react-hook-form'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from '~/types'
+import { AxiosError } from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
+import { AuthService  } from '~/services/tgl-api'
 
 import { AuthStackLayout } from '~/layouts'
 
@@ -9,12 +12,12 @@ import {
   ButtonLink,
   Center,
   ControlledInput,
-  FormContainer
+  FormContainer,
+  CustomToast
 } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
-import { useForm } from 'react-hook-form'
 
 type FormData = {
   email: string
@@ -39,8 +42,17 @@ export function ResetPassword ({ navigation }: Props) {
     navigation.goBack()
   }
 
-  const sendLinkHandler = (data: FormData) => {
+  const sendLinkHandler = async (data: FormData) => {
+    try {
+      const { code } = await AuthService.resetPassword(data.email)
+      navigation.replace('ChangePassword')
+    } catch (error) {
+      const err = error as AxiosError
 
+      if(err.response?.data) {
+        CustomToast.error(err.response.data.message)
+      }
+    }
   }
 
   return (
