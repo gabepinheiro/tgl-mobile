@@ -1,5 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useAppNavigation  } from '../../hooks'
+import { useAppNavigation, useAppSelector  } from '../../hooks'
+import { selectAuth } from '~/store/features/auth-slice'
 
 import { Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
@@ -7,6 +8,8 @@ import { Feather } from '@expo/vector-icons'
 import * as S from './styles'
 
 export const CustomHeader = () => {
+  const { user } = useAppSelector(selectAuth)
+
   const insets = useSafeAreaInsets()
   const navigation = useAppNavigation()
 
@@ -32,7 +35,7 @@ export const CustomHeader = () => {
           </Pressable>
         </S.WrapperButtons>
         <S.Username>
-          Olá, John Doe
+          Olá, {user?.user.name}
         </S.Username>
       </S.Container>
     </S.Wrapper>
