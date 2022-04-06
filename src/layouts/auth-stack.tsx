@@ -25,15 +25,16 @@ export const AuthStackLayout = ({ children, heading }: Props) => {
 }
 
 const Wrapper = styled.View`
-  padding: 24px;
+  padding: 0 24px;
   flex: 1;
+  justify-content: center;
 `
 
 const Heading = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.font.boldItalic};
     color: ${theme.colors.gray600};
-    font-size: 26px;
+    font-size: 32px;
     text-align: center;
   `}
 `
