@@ -1,4 +1,8 @@
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { useForm } from 'react-hook-form'
+import { AuthService } from '~/services/tgl-api'
+import { useAppDispatch } from '~/hooks'
+import { setAuthenticatedUser } from '~/store/features/auth-slice'
 import { RootStackParamList } from '~/types'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
@@ -9,7 +13,6 @@ import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
-import { useForm } from 'react-hook-form';
 
 type LoginProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -26,6 +29,8 @@ const schema = yup.object({
 });
 
 export function Login ({ navigation }: LoginProps) {
+  const dispatch = useAppDispatch()
+
   const {
     control,
     handleSubmit,
@@ -38,8 +43,13 @@ export function Login ({ navigation }: LoginProps) {
     navigation.navigate('Register')
   }
 
-  const loginUserHandler = (data: FormData) => {
+  const loginUserHandler = async (data: FormData) => {
+    try {
+      const authUser = await AuthService.login(data)
+      dispatch(setAuthenticatedUser(authUser))
+    } catch (err) {
 
+    }
   }
 
   return (
