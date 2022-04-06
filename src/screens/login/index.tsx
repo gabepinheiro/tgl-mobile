@@ -21,6 +21,7 @@ import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
+import { Pressable } from 'react-native'
 
 type LoginProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -49,6 +50,10 @@ export function Login ({ navigation }: LoginProps) {
 
   const navigateRegisterHandler = () => {
     navigation.navigate('Register')
+  }
+
+  const navigateIForgetPasswordHandler = () => {
+    navigation.navigate('ResetPassword')
   }
 
   const loginUserHandler = async (data: FormData) => {
@@ -85,6 +90,11 @@ export function Login ({ navigation }: LoginProps) {
           placeholder='Password'
           secureTextEntry
         />
+
+        <Pressable onPress={navigateIForgetPasswordHandler}>
+          <S.IForgetMyPasswordText />
+        </Pressable>
+
         <Center style={{marginVertical: 32}}>
           <ButtonLink
             color='greenLight'
