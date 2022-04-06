@@ -19,12 +19,17 @@ export const authSlice = createSlice({
     setAuthenticatedUser (state, { payload }: PayloadAction<AuthenticatedUser>) {
       state.user = payload
       state.isAuthenticated = true
+    },
+    logout (state) {
+      state.isAuthenticated = false
+      state.user = null
     }
   }
 })
 
 export const {
-  setAuthenticatedUser
+  setAuthenticatedUser,
+  logout
 } = authSlice.actions
 
 export const selectAuth = (state: RootState) => state.auth
