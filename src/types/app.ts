@@ -20,3 +20,5 @@ export type ErrorResponseData = {
     message: string
   }
 }
+
+export type AuthenticatedUser = CreateUserResponse
