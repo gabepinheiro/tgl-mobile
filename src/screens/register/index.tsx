@@ -1,18 +1,19 @@
 import { useForm } from 'react-hook-form'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '~/types'
+import { ErrorResponseData, RootStackParamList } from '~/types'
+import { AxiosError } from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
+import { AuthService } from '~/services/tgl-api'
 
 import { AuthStackLayout } from '~/layouts'
 
+import Toast from 'react-native-root-toast'
 import { FormContainer, ControlledInput, ButtonLink, Center } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
-import { AuthService } from '~/services/tgl-api'
-import { Alert } from 'react-native'
 
 type RegisterProps =
   NativeStackScreenProps<RootStackParamList, 'Login'>
@@ -42,9 +43,30 @@ export function Resgiter ({ navigation }: RegisterProps) {
   const handleRegister = async (data: FormData) => {
     try {
       const res = await AuthService.createUser(data)
-      Alert.alert('Registro realizado com sucesso')
-    } catch (error) {
-      Alert.alert('An ocurred error!')
+      Toast.show('Registro realizdo com sucesso.', {
+        position: Toast.positions.TOP,
+        backgroundColor: 'green',
+        textColor: '#fff',
+        opacity: 1,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+      })
+    } catch (err) {
+      const error = err as AxiosError<ErrorResponseData>
+
+      if (error.response) {
+        const { message } = error.response.data.error
+        return Toast.show(message, {
+          position: Toast.positions.TOP,
+          backgroundColor: 'red',
+          textColor: '#fff',
+          opacity: 1,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+        })
+      }
     }
   }
 

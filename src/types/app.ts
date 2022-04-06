@@ -13,3 +13,9 @@ export type CreateUserResponse = {
     expires_at: string
   }
 }
+
+export type ErrorResponseData = {
+  error: {
+    message: string
+  }
+}
