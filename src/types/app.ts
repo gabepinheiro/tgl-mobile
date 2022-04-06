@@ -37,3 +37,7 @@ export type LoginResponseData ={
 }
 
 export type AuthenticatedUser = LoginResponseData
+
+export type resetPasswordResponseData = {
+  code: string
+}

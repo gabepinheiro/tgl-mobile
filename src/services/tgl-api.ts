@@ -3,7 +3,8 @@ import {
   CreateUserResponse,
   CreateUser,
   Login,
-  LoginResponseData
+  LoginResponseData,
+  resetPasswordResponseData
 } from '~/types/app'
 
 export const AuthService = {
@@ -15,5 +16,12 @@ export const AuthService = {
   login (loginData: Login): Promise<LoginResponseData> {
     return api.post('/login', loginData)
       .then(({ data }) => data)
+  },
+
+  resetPassword (email: string): Promise<resetPasswordResponseData> {
+    return api.post('/reset', { email })
+      .then(({ data }) => ({
+        code: data.token
+      }))
   }
 }
