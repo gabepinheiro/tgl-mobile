@@ -1,3 +1,5 @@
+import { useAppDispatch } from '~/hooks'
+import { setAuthenticatedUser } from '~/store/features/auth-slice'
 import { useForm } from 'react-hook-form'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { ErrorResponseData, RootStackParamList } from '~/types'
@@ -32,6 +34,8 @@ const schema = yup.object({
 });
 
 export function Resgiter ({ navigation }: RegisterProps) {
+  const dispatch = useAppDispatch()
+
   const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: yupResolver(schema)
   })
@@ -43,6 +47,7 @@ export function Resgiter ({ navigation }: RegisterProps) {
   const handleRegister = async (data: FormData) => {
     try {
       const res = await AuthService.createUser(data)
+
       Toast.show('Registro realizdo com sucesso.', {
         position: Toast.positions.TOP,
         backgroundColor: 'green',
@@ -52,6 +57,8 @@ export function Resgiter ({ navigation }: RegisterProps) {
         animation: true,
         hideOnPress: true,
       })
+
+      dispatch(setAuthenticatedUser(res))
     } catch (err) {
       const error = err as AxiosError<ErrorResponseData>
 
