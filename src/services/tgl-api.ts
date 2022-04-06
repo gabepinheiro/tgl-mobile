@@ -4,7 +4,8 @@ import {
   CreateUser,
   Login,
   LoginResponseData,
-  resetPasswordResponseData
+  resetPasswordResponseData,
+  ChangePasswordData
 } from '~/types/app'
 
 export const AuthService = {
@@ -22,6 +23,16 @@ export const AuthService = {
     return api.post('/reset', { email })
       .then(({ data }) => ({
         code: data.token
+      }))
+  },
+
+  changePassword ({
+    newPassword,
+    code
+  }: ChangePasswordData): Promise<{ ok: boolean }> {
+    return api.post(`/reset/${code}`, { password: newPassword })
+      .then(() => ({
+        ok: true
       }))
   }
 }

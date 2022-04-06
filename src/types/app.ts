@@ -41,3 +41,7 @@ export type AuthenticatedUser = LoginResponseData
 export type resetPasswordResponseData = {
   code: string
 }
+export type ChangePasswordData = {
+  newPassword: string
+  code: string
+}
