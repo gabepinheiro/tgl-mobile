@@ -1,8 +1,8 @@
-import { CreateUserResponse, User } from '~/types/app'
+import { CreateUserResponse, CreateUser } from '~/types/app'
 import { api } from './http'
 
 export const AuthService = {
-  createUser (user: User): Promise<CreateUserResponse> {
+  createUser (user: CreateUser): Promise<CreateUserResponse> {
     return api.post('/user/create', user)
       .then(({ data }) => data)
   }
