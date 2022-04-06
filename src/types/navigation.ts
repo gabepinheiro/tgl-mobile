@@ -8,7 +8,7 @@ export type RootStackParamList = {
   Login: undefined
   Register: undefined
   ResetPassword: undefined
-  ChangePassword: undefined
+  ChangePassword: { code: string }
 };
 
 export type AppNavigationProp =

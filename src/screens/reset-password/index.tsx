@@ -45,7 +45,7 @@ export function ResetPassword ({ navigation }: Props) {
   const sendLinkHandler = async (data: FormData) => {
     try {
       const { code } = await AuthService.resetPassword(data.email)
-      navigation.replace('ChangePassword')
+      navigation.replace('ChangePassword', { code })
     } catch (error) {
       const err = error as AxiosError
 
