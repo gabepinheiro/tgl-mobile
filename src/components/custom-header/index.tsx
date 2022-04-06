@@ -1,6 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useAppNavigation, useAppSelector  } from '../../hooks'
-import { selectAuth } from '~/store/features/auth-slice'
+import { useAppDispatch, useAppNavigation, useAppSelector  } from '~/hooks'
+import { selectAuth, logout } from '~/store/features/auth-slice'
 
 import { Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
@@ -9,12 +9,17 @@ import * as S from './styles'
 
 export const CustomHeader = () => {
   const { user } = useAppSelector(selectAuth)
+  const dispatch = useAppDispatch()
 
   const insets = useSafeAreaInsets()
   const navigation = useAppNavigation()
 
   const accountNavigateHandler = () => {
     navigation.navigate('Account')
+  }
+
+  const logoutHandler = () => {
+    dispatch(logout())
   }
 
   return (
@@ -30,7 +35,7 @@ export const CustomHeader = () => {
             </S.IconUserWrapper>
           </Pressable>
 
-          <Pressable onPress={() => {}}>
+          <Pressable onPress={logoutHandler}>
             <Feather name='log-out' size={24} color='#fff' />
           </Pressable>
         </S.WrapperButtons>
