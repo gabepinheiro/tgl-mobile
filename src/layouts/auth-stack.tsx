@@ -17,7 +17,9 @@ export const AuthStackLayout = ({ children, heading }: Props) => {
       <Wrapper>
         <KeyboardAvoidingView behavior="position" enabled>
           <Heading>{heading}</Heading>
-          {children}
+          <Container>
+            {children}
+          </Container>
         </KeyboardAvoidingView>
       </Wrapper>
     </TouchableWithoutFeedback>
@@ -39,4 +41,8 @@ const Heading = styled.Text`
   `}
 `
 
+const Container = styled.View`
+  width: 100%;
+  margin-top: 26px;
+`
 

@@ -69,52 +69,50 @@ export function Login ({ navigation }: LoginProps) {
 
   return (
     <AuthStackLayout heading='Authentication'>
-      <S.Container>
-        <FormContainer>
-          <ControlledInput
-            name='email'
-            control={control}
-            error={errors.email}
-            placeholder='Email'
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-          <ControlledInput
-            name='password'
-            control={control}
-            error={errors.password}
-            placeholder='Password'
-            secureTextEntry
-          />
-          <Center style={{marginVertical: 32}}>
-            <ButtonLink
-              color='greenLight'
-              onPress={handleSubmit(loginUserHandler)}
-              icon={<Feather
-                name='arrow-right'
-                size={24}
-                color={theme.colors.greenLight}
-                />}
-              >
-                Log In
-            </ButtonLink>
-          </Center>
-        </FormContainer>
-
+      <FormContainer>
+        <ControlledInput
+          name='email'
+          control={control}
+          error={errors.email}
+          placeholder='Email'
+          keyboardType='email-address'
+          autoCapitalize='none'
+        />
+        <ControlledInput
+          name='password'
+          control={control}
+          error={errors.password}
+          placeholder='Password'
+          secureTextEntry
+        />
         <Center style={{marginVertical: 32}}>
           <ButtonLink
-            color='black'
-            onPress={navigateRegisterHandler}
+            color='greenLight'
+            onPress={handleSubmit(loginUserHandler)}
             icon={<Feather
               name='arrow-right'
               size={24}
-              color={theme.colors.gray600}
+              color={theme.colors.greenLight}
               />}
             >
-              Sign Up
+              Log In
           </ButtonLink>
         </Center>
-      </S.Container>
+      </FormContainer>
+
+      <Center style={{marginVertical: 32}}>
+        <ButtonLink
+          color='black'
+          onPress={navigateRegisterHandler}
+          icon={<Feather
+            name='arrow-right'
+            size={24}
+            color={theme.colors.gray600}
+            />}
+          >
+            Sign Up
+        </ButtonLink>
+      </Center>
     </AuthStackLayout>
   )
 }

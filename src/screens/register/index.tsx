@@ -67,62 +67,60 @@ export function Resgiter ({ navigation }: RegisterProps) {
 
   return (
     <AuthStackLayout heading='Registration'>
-      <S.Container>
-        <FormContainer>
-          <ControlledInput
-            name='name'
-            control={control}
-            error={errors.name}
-            placeholder='Name'
-          />
+      <FormContainer>
+        <ControlledInput
+          name='name'
+          control={control}
+          error={errors.name}
+          placeholder='Name'
+        />
 
-          <ControlledInput
-            name='email'
-            control={control}
-            error={errors.email}
-            placeholder='Email'
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
+        <ControlledInput
+          name='email'
+          control={control}
+          error={errors.email}
+          placeholder='Email'
+          keyboardType='email-address'
+          autoCapitalize='none'
+        />
 
-          <ControlledInput
-            name='password'
-            control={control}
-            error={errors.password}
-            placeholder='Password'
-            secureTextEntry
-          />
-
-          <Center style={{marginVertical: 32}}>
-            <ButtonLink
-              color='greenLight'
-              onPress={handleSubmit(handleRegister)}
-              icon={<Feather
-                name='arrow-right'
-                size={24}
-                color={theme.colors.greenLight}
-                />}
-              >
-                Register
-            </ButtonLink>
-          </Center>
-        </FormContainer>
+        <ControlledInput
+          name='password'
+          control={control}
+          error={errors.password}
+          placeholder='Password'
+          secureTextEntry
+        />
 
         <Center style={{marginVertical: 32}}>
           <ButtonLink
-            color='black'
-            onPress={navigateBackHandler}
-            reverse
+            color='greenLight'
+            onPress={handleSubmit(handleRegister)}
             icon={<Feather
-              name='arrow-left'
+              name='arrow-right'
               size={24}
-              color={theme.colors.gray600}
+              color={theme.colors.greenLight}
               />}
             >
-              Back
+              Register
           </ButtonLink>
         </Center>
-      </S.Container>
+      </FormContainer>
+
+      <Center style={{marginVertical: 32}}>
+        <ButtonLink
+          color='black'
+          onPress={navigateBackHandler}
+          reverse
+          icon={<Feather
+            name='arrow-left'
+            size={24}
+            color={theme.colors.gray600}
+            />}
+          >
+            Back
+        </ButtonLink>
+      </Center>
     </AuthStackLayout>
   )
 }
