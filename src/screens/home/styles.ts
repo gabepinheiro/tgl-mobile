@@ -9,6 +9,13 @@ export const Wrapper = styled.View`
   `}
 `
 
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 16px;
+`
+
 export const Heading = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.gray600};
