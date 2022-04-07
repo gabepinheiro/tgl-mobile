@@ -10,6 +10,7 @@ import {
   Bet,
   Game
 } from '~/types/app'
+import { AxiosRequestConfig } from 'axios'
 
 export const AuthService = {
   createUser (user: CreateUser): Promise<CreateUserResponse> {
@@ -41,8 +42,8 @@ export const AuthService = {
 }
 
 export const BetsService = {
-  async fetchBets (): Promise<Bet[]> {
-    const res = await api.get('/bet/all-bets')
+  async fetchBets (config?: AxiosRequestConfig): Promise<Bet[]> {
+    const res = await api.get('/bet/all-bets', config)
 
     return res.data.map((bet: BetResponseData) => ({
       id: bet.id,
