@@ -21,9 +21,18 @@ export function Home ({ navigation }: HomeProps) {
   const [isFetching, setIsFetching] = useState(true)
   const [bets, setBets] = useState<Bet[]>([])
   const [games, setGames] = useState<Game[]>([])
+  const [filterGames, setFilterGames] = useState<string[]>([])
 
   const navigateNewBetHandler = () => {
     navigation.navigate('NewBet')
+  }
+
+  const handleFilterGames = (type: string) => {
+    setFilterGames(state => {
+      return state.includes(type)
+        ? state.filter(item => item !== type)
+        : state.concat(type)
+    })
   }
 
   useEffect(() => {
@@ -42,6 +51,25 @@ export function Home ({ navigation }: HomeProps) {
 
     fetch()
   }, [])
+
+  useEffect(() => {
+    setIsFetching(true)
+    const requestBetsFiltered = async () => {
+      try {
+        const bets = await BetsService.fetchBets({
+          params: {
+            type: filterGames,
+          },
+        })
+        setBets(bets)
+      } catch (error) {
+
+      } finally {
+        setIsFetching(false)
+      }
+    }
+    requestBetsFiltered()
+  }, [filterGames])
 
   if(isFetching) {
     return <LoadingOverlay />
@@ -71,8 +99,8 @@ export function Home ({ navigation }: HomeProps) {
             <S.ButtonItem key={game.type}>
               <GameButton
                 color={game.color}
-                selected={false}
-                onPress={(() => {})}
+                selected={!!filterGames.includes(game.type)}
+                onPress={(() => handleFilterGames(game.type))}
                 >
                 {game.type}
               </GameButton>
