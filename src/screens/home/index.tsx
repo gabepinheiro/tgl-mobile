@@ -1,5 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '~/types'
+import { RootStackScreenProps } from '~/types'
 
 import { ButtonLink, GameButton } from '~/components'
 import { Feather } from '@expo/vector-icons'
@@ -7,7 +6,7 @@ import { Feather } from '@expo/vector-icons'
 import { theme } from '~/styles'
 import * as S from './styles'
 
-type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>
+type HomeProps = RootStackScreenProps<'Home'>
 
 export function Home ({ navigation }: HomeProps) {
   const navigateNewBetHandler = () => {

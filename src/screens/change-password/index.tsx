@@ -1,5 +1,4 @@
-import { RootStackParamList } from '~/types'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackScreenProps } from '~/types'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -31,7 +30,7 @@ const schema = yup.object({
       .oneOf([yup.ref('password')], 'As senhas não correspondem.'),
 })
 
-type Props = NativeStackScreenProps<RootStackParamList, 'ChangePassword'>
+type Props = RootStackScreenProps<'ChangePassword'>
 
 export function ChangePassword ({ navigation, route }: Props) {
   const { code } = route.params

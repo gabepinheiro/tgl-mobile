@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '~/types'
+import { RootStackScreenProps } from '~/types'
 import { AxiosError } from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
@@ -27,7 +26,7 @@ const schema = yup.object({
   email: yup.string().email('E-mail inválido').required('Informe o e-mail'),
 });
 
-type Props = NativeStackScreenProps<RootStackParamList, 'ResetPassword'>
+type Props = RootStackScreenProps<'ResetPassword'>
 
 export function ResetPassword ({ navigation }: Props) {
   const {

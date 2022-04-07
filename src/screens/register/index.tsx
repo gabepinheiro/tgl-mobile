@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
-import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { ErrorResponseData, RootStackParamList } from '~/types'
+import { ErrorResponseData, RootStackScreenProps } from '~/types'
 import { AxiosError } from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
@@ -19,8 +18,7 @@ import { Feather } from '@expo/vector-icons'
 import { theme } from '~/styles'
 import * as S from './styles'
 
-type RegisterProps =
-  NativeStackScreenProps<RootStackParamList, 'Login'>
+type RegisterProps = RootStackScreenProps<'Register'>
 
 type FormData = {
   name: string

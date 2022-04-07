@@ -3,8 +3,6 @@ import {
   NativeStackNavigationOptions
 } from '@react-navigation/native-stack'
 
-import { RootStackParamList } from '~/types'
-
 import {
   Home,
   Account,
@@ -20,7 +18,7 @@ import { CustomHeader, Logo } from '~/components'
 
 import { theme } from '~/styles'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator()
 
 const screenCustomOptionsDefault: NativeStackNavigationOptions = {
   headerStyle: {
