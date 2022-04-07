@@ -1,4 +1,6 @@
-import { GameButton } from '~/components'
+import { GameButton, Button } from '~/components'
+import { Feather } from '@expo/vector-icons'
+
 import * as S from './styles'
 
 export function NewBet () {
@@ -47,6 +49,22 @@ export function NewBet () {
         Mark as many numbers as you want up to a maximum of 50.
         Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
       </S.Paragraph>
+
+      <S.ButtonsWrapper>
+        <S.ButtonsScrollView>
+          <S.ButtonItem>
+            <Button icon={
+              <Feather name='shopping-cart' color='#fff' size={17} />
+            }>Add to cart</Button>
+          </S.ButtonItem>
+          <S.ButtonItem>
+            <Button variant='outline'>Complete game</Button>
+          </S.ButtonItem>
+          <S.ButtonItem>
+            <Button variant='outline'>Clear game</Button>
+          </S.ButtonItem>
+        </S.ButtonsScrollView>
+      </S.ButtonsWrapper>
     </S.Wrapper>
   )
 }
