@@ -1,9 +1,13 @@
-import { GameButton, Button } from '~/components'
+import { GameButton, Button, NumberButton } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
+import { ScrollView } from 'react-native'
 
 export function NewBet () {
+  const numbers =
+    new Array(60).fill(null).map((_, index) => index + 1)
+
   return (
     <S.Wrapper>
       <S.HeadingPrimaryWrapper>
@@ -13,7 +17,7 @@ export function NewBet () {
 
       <S.HeadingSecondary>Choose game</S.HeadingSecondary>
       <S.ButtonsWrapper>
-        <S.ButtonsScrollView>
+        <S.ButtonsScrollView horizontal>
           <S.ButtonItem>
             <GameButton
               color='#7F3992'
@@ -51,7 +55,7 @@ export function NewBet () {
       </S.Paragraph>
 
       <S.ButtonsWrapper>
-        <S.ButtonsScrollView>
+        <S.ButtonsScrollView horizontal>
           <S.ButtonItem>
             <Button icon={
               <Feather name='shopping-cart' color='#fff' size={17} />
@@ -65,6 +69,16 @@ export function NewBet () {
           </S.ButtonItem>
         </S.ButtonsScrollView>
       </S.ButtonsWrapper>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <S.NumberButtonsWrapper>
+            {numbers.map(number => (
+              <S.NumberButtonItem key={number}>
+                <NumberButton number={number} />
+              </S.NumberButtonItem>
+            ))}
+          </S.NumberButtonsWrapper>
+        </ScrollView>
     </S.Wrapper>
   )
 }

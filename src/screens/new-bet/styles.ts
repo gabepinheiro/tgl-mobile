@@ -57,13 +57,24 @@ export const ButtonsWrapper = styled.View`
 
 export const ButtonsScrollView = styled.ScrollView.attrs({
   horizontal: true,
-  contentContainerStyle: {
-    paddingVertical: 8,
-   },
+   contentContainerStyle: {
+     paddingVertical: 8,
+    },
   showsHorizontalScrollIndicator: false,
-})`
-`;
+})``;
 
 export const ButtonItem = styled.View`
   margin-right: 10px;
 `;
+
+export const NumberButtonsWrapper = styled.View`
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 8px;
+`
+
+export const NumberButtonItem = styled.View`
+  margin: 0 2px 6px;
+`
