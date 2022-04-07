@@ -1,10 +1,13 @@
 import { RootStackScreenProps } from '~/types'
 
-import { ButtonLink, GameButton } from '~/components'
+import { FlatList } from 'react-native'
+import { ButtonLink, GameButton, GameCard } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '~/styles'
 import * as S from './styles'
+
+import { DUMMY_BETS_DATA } from './betsData'
 
 type HomeProps = RootStackScreenProps<'Home'>
 
@@ -62,6 +65,19 @@ export function Home ({ navigation }: HomeProps) {
           </S.ButtonItem>
         </S.ButtonsContainer>
       </S.WrapperFiltersButtons>
+
+      <S.WrapperBets>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={DUMMY_BETS_DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item: { id, ...props} }) => (
+            <S.ItemGameCard>
+              <GameCard {...props} />
+            </S.ItemGameCard>
+          )}
+        />
+      </S.WrapperBets>
     </S.Wrapper>
   )
 }
