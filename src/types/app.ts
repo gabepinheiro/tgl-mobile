@@ -41,7 +41,28 @@ export type AuthenticatedUser = LoginResponseData
 export type resetPasswordResponseData = {
   code: string
 }
+
 export type ChangePasswordData = {
   newPassword: string
   code: string
+}
+
+export type Bet = {
+  numbers: string
+  gameId: number
+  price: number
+  createdAt: string
+}
+
+export type BetResponseData = {
+  choosen_numbers: string,
+  created_at: string,
+  game_id: number,
+  id: number
+  price: number,
+  type:  {
+    id: number,
+    type: string,
+  },
+  user_id:number,
 }

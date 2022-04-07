@@ -5,7 +5,9 @@ import {
   Login,
   LoginResponseData,
   resetPasswordResponseData,
-  ChangePasswordData
+  ChangePasswordData,
+  BetResponseData,
+  Bet,
 } from '~/types/app'
 
 export const AuthService = {
@@ -34,5 +36,18 @@ export const AuthService = {
       .then(() => ({
         ok: true
       }))
+  }
+}
+
+export const BetsService = {
+  async fetchBets (): Promise<Bet[]> {
+    const res = await api.get('/bet/all-bets')
+
+    return res.data.map((bet: BetResponseData) => ({
+      numbers: bet.choosen_numbers,
+      gameId: bet.game_id,
+      price: bet.price,
+      createAt: bet.created_at
+    }))
   }
 }
