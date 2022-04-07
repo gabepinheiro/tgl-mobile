@@ -1,6 +1,7 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useAppDispatch, useAppNavigation, useAppSelector  } from '~/hooks'
 import { selectAuth, logout } from '~/store/features/auth-slice'
+import { Storage } from '~/storage'
 
 import { Pressable } from 'react-native'
 import { Feather } from '@expo/vector-icons'
@@ -18,7 +19,8 @@ export const CustomHeader = () => {
     navigation.navigate('Account')
   }
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    await Storage.removeItem('@auth')
     dispatch(logout())
   }
 
