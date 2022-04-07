@@ -13,16 +13,16 @@ type Props = {
 
 export const AuthStackLayout = ({ children, heading }: Props) => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Wrapper>
-        <KeyboardAvoidingView behavior="position" enabled>
+    <Wrapper>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView behavior="height" enabled>
           <Heading>{heading}</Heading>
           <Container>
             {children}
           </Container>
-        </KeyboardAvoidingView>
-      </Wrapper>
-    </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </Wrapper>
   )
 }
 
