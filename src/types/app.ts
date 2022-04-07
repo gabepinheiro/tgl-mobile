@@ -48,6 +48,7 @@ export type ChangePasswordData = {
 }
 
 export type Bet = {
+  id: number
   numbers: string
   gameId: number
   price: number

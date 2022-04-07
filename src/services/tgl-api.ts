@@ -45,10 +45,11 @@ export const BetsService = {
     const res = await api.get('/bet/all-bets')
 
     return res.data.map((bet: BetResponseData) => ({
+      id: bet.id,
       numbers: bet.choosen_numbers,
       gameId: bet.game_id,
       price: bet.price,
-      createAt: bet.created_at
+      createdAt: bet.created_at
     }))
   }
 }

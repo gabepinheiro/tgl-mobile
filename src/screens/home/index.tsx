@@ -1,19 +1,49 @@
-import { RootStackScreenProps } from '~/types'
+import { useEffect, useState } from 'react'
+import { Bet, Game, RootStackScreenProps } from '~/types'
 
-import { FlatList } from 'react-native'
-import { ButtonLink, GameButton, GameCard } from '~/components'
+import { FlatList, Text } from 'react-native'
+import {
+  ButtonLink,
+  GameButton,
+  GameCard,
+} from '~/components'
 import { Feather } from '@expo/vector-icons'
+
+import { BetsService, GamesService } from '~/services/tgl-api'
 
 import { theme } from '~/styles'
 import * as S from './styles'
 
-import { DUMMY_BETS_DATA } from './betsData'
-
 type HomeProps = RootStackScreenProps<'Home'>
 
 export function Home ({ navigation }: HomeProps) {
+  const [isFetching, setIsFetching] = useState(true)
+  const [bets, setBets] = useState<Bet[]>([])
+  const [games, setGames] = useState<Game[]>([])
+
   const navigateNewBetHandler = () => {
     navigation.navigate('NewBet')
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const betsData = await BetsService.fetchBets()
+        const gamesData = await GamesService.fetchGames()
+
+        setBets(betsData)
+        setGames(gamesData)
+        setIsFetching(false)
+      } catch (error) {
+
+      }
+    }
+
+    fetch()
+  }, [])
+
+  if(isFetching) {
+    return null
   }
 
   return (
@@ -36,47 +66,48 @@ export function Home ({ navigation }: HomeProps) {
       <S.WrapperFiltersButtons>
         <S.FiltersText>Filters: </S.FiltersText>
         <S.ButtonsContainer>
-          <S.ButtonItem>
-            <GameButton
-              color='#7F3992'
-              selected={false}
-              onPress={(() => {})}
-              >
-              Lotofácil
-            </GameButton>
-          </S.ButtonItem>
-          <S.ButtonItem>
-            <GameButton
-              color='#01AC66'
-              selected
-              onPress={(() => {})}
-              >
-              Mega-Sena
-            </GameButton>
-          </S.ButtonItem>
-          <S.ButtonItem>
-            <GameButton
-              color='#F79C31'
-              selected={false}
-              onPress={(() => {})}
-              >
-              Lotomania
-            </GameButton>
-          </S.ButtonItem>
+          {games.map(game => (
+            <S.ButtonItem key={game.type}>
+              <GameButton
+                color={game.color}
+                selected={false}
+                onPress={(() => {})}
+                >
+                {game.type}
+              </GameButton>
+            </S.ButtonItem>
+          ))}
         </S.ButtonsContainer>
       </S.WrapperFiltersButtons>
 
       <S.WrapperBets>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={DUMMY_BETS_DATA}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item: { id, ...props} }) => (
-            <S.ItemGameCard>
-              <GameCard {...props} />
-            </S.ItemGameCard>
-          )}
-        />
+        {bets.length === 0 && (
+          <Text>Você ainda não possui apostas cadastradas.</Text>
+        )}
+        {!!bets.length && (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={bets}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({item}) => {
+              const game = games.find(game => game.id === item.gameId)
+              if(game) {
+                return (
+                  <S.ItemGameCard>
+                    <GameCard
+                      numbers={item.numbers}
+                      price={item.price}
+                      date={item.createdAt}
+                      color={game.color}
+                      type={game.type}
+                    />
+                </S.ItemGameCard>
+                )
+              }
+              return null
+            }}
+          />
+        )}
       </S.WrapperBets>
     </S.Wrapper>
   )
