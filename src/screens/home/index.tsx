@@ -21,10 +21,11 @@ export function Home ({ navigation }: HomeProps) {
         <ButtonLink
           color='greenLight'
           onPress={navigateNewBetHandler}
+          size='small'
           icon={<Feather
             name='arrow-right'
-            size={24}
-            color={theme.colors.gray600}
+            size={18}
+            color={theme.colors.greenLight}
             />}
           >
             New Bet

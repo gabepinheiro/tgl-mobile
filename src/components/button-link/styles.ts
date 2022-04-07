@@ -1,6 +1,6 @@
 import styled, { css, DefaultTheme } from 'styled-components/native'
 
-const LinkModifiers = {
+const TextModifiers = {
   black: (theme: DefaultTheme) => css`
     color: ${theme.colors.gray600};
   `,
@@ -10,6 +10,12 @@ const LinkModifiers = {
   greenLight: (theme: DefaultTheme) => css`
     color: ${theme.colors.greenLight};
   `,
+  small: () => css`
+    font-size: 18px;
+  `,
+  medium: () => css`
+    font-size: 32px;
+  `
 }
 
 export const Wrapper = styled.Pressable<{ reverse: boolean }>`
@@ -18,13 +24,20 @@ export const Wrapper = styled.Pressable<{ reverse: boolean }>`
 `
 
 type Colors = 'black' | 'green' | 'greenLight'
+type Size = 'small' | 'medium'
 
-export const Text = styled.Text<{color: Colors}>`
-  font-size: 32px;
+type TextProps = {
+  color: Colors
+  size: Size
+}
+
+export const Text = styled.Text<TextProps>`
   text-align: center;
   margin: 0 14px;
-  ${({ theme, color }) => css`
+
+  ${({ theme, color, size}) => css`
     font-family: ${theme.font.boldItalic};
-    ${!!color && LinkModifiers[color](theme)};
+    ${!!color && TextModifiers[color](theme)};
+    ${!!size && TextModifiers[size]()};
   `}
 `
