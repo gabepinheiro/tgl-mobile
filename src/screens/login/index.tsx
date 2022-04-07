@@ -21,6 +21,7 @@ import { Feather } from '@expo/vector-icons'
 import { theme } from '~/styles'
 import * as S from './styles'
 import { Pressable } from 'react-native'
+import { Storage } from '~/storage'
 
 type LoginProps = RootStackScreenProps<'Login'>
 
@@ -60,6 +61,7 @@ export function Login ({ navigation }: LoginProps) {
 
       CustomToast.success('Autenticado com sucesso.')
 
+      await Storage.setItem('@auth', authUser)
       dispatch(setAuthenticatedUser(authUser))
     } catch (err) {
       const error = err as AxiosError
