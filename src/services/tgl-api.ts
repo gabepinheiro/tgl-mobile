@@ -8,6 +8,7 @@ import {
   ChangePasswordData,
   BetResponseData,
   Bet,
+  Game
 } from '~/types/app'
 
 export const AuthService = {
@@ -49,5 +50,13 @@ export const BetsService = {
       price: bet.price,
       createAt: bet.created_at
     }))
+  }
+}
+
+export const GamesService = {
+  async fetchGames (): Promise<Game[]> {
+    const res = await api.get('/cart_games')
+
+    return res.data.types
   }
 }
