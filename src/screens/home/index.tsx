@@ -6,6 +6,7 @@ import {
   ButtonLink,
   GameButton,
   GameCard,
+  LoadingOverlay,
 } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
@@ -43,7 +44,7 @@ export function Home ({ navigation }: HomeProps) {
   }, [])
 
   if(isFetching) {
-    return null
+    return <LoadingOverlay />
   }
 
   return (
