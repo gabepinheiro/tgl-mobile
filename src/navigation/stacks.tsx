@@ -24,6 +24,8 @@ const screenCustomOptionsDefault: NativeStackNavigationOptions = {
   headerStyle: {
     backgroundColor:  theme.colors.green,
   },
+  headerTintColor: "#fff",
+  title: '',
   headerShadowVisible: false,
   headerTitleAlign: 'center',
 }
