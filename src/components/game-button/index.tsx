@@ -6,7 +6,7 @@ import * as S from './styles'
 export type GameButtonProps = {
   children: ReactNode
   color: string
-  selected: boolean
+  selected?: boolean
   onPress: () => void
 }
 

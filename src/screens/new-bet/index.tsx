@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
-import { ScrollView } from 'react-native'
+import { useNewBet } from '~/hooks/use-new-bet'
 import { RootStackScreenProps } from '~/types'
 
-import { GameButton, Button, NumberButton, CartItemsIcon } from '~/components'
+import { ScrollView } from 'react-native'
+import { GameButton, Button, NumberButton, CartItemsIcon, LoadingOverlay } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
@@ -10,6 +11,10 @@ import * as S from './styles'
 type NewBetScreenProps = RootStackScreenProps<'NewBet'>
 
 export function NewBet ({ navigation }: NewBetScreenProps) {
+  const {
+    games,
+    isFetching
+  } = useNewBet()
 
   useEffect(() => {
     navigation.setOptions({
@@ -24,6 +29,10 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
   const numbers =
     new Array(60).fill(null).map((_, index) => index + 1)
 
+  if (isFetching) {
+    return <LoadingOverlay />
+  }
+
   return (
     <S.Wrapper>
       <S.HeadingPrimaryWrapper>
@@ -34,33 +43,16 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
       <S.HeadingSecondary>Choose game</S.HeadingSecondary>
       <S.ButtonsWrapper>
         <S.ButtonsScrollView horizontal>
-          <S.ButtonItem>
-            <GameButton
-              color='#7F3992'
-              selected={true}
-              onPress={() => {}}
-            >
-              Lotofácil
-            </GameButton>
-          </S.ButtonItem>
-          <S.ButtonItem>
-            <GameButton
-              color='#01AC66'
-              selected={false}
-              onPress={() => {}}
-            >
-              Mega-Sena
-            </GameButton>
-          </S.ButtonItem>
-          <S.ButtonItem>
-            <GameButton
-              color='#F79C31'
-              selected={false}
-              onPress={() => {}}
-            >
-              Lotomania
-            </GameButton>
-          </S.ButtonItem>
+          {games.map(({ color, type }) => (
+            <S.ButtonItem>
+              <GameButton
+                color={color}
+                onPress={() => {}}
+              >
+                {type}
+              </GameButton>
+            </S.ButtonItem>
+          ))}
         </S.ButtonsScrollView>
       </S.ButtonsWrapper>
 
