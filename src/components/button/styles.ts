@@ -1,17 +1,18 @@
 import styled, { css } from 'styled-components/native'
 import { ButtonProps } from '.'
 
-export const Wrapper = styled.Pressable``
+export const Wrapper = styled.Pressable`
+  align-items: flex-start;
+`
 
 type Props = Pick<ButtonProps, 'color' | 'variant' | 'reverse'>
 
 export const Container = styled.View<Props>`
   ${({ theme, color, variant }) => css`
-    max-width: 140px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 12px 18px;
+    padding: 12px 26px;
     background-color: ${theme.colors[color!]};
     border-radius: 10px;
 

@@ -1,22 +1,42 @@
+import { useState, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '~/hooks'
 import { clearCart, deleteItemCart, selectCart } from '~/store/features/cart-slice'
 import { BetsService } from '~/services/tgl-api'
 import { AxiosError } from 'axios'
 
-import { FlatList, Pressable } from 'react-native'
+import { FlatList, Pressable, Modal } from 'react-native'
 import { Button, CustomToast, GameCard } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
 
 export function Cart () {
+  const [modalVisible, setModalVisible] = useState(false);
+  const itemCartIdRef = useRef<string | null>(null)
+
   const cart = useAppSelector(selectCart)
   const dispatch = useAppDispatch()
 
-  const handlerDeleteItemCart = (id: string) => {
+  const handlerConfirmDelete = (id: string) => {
     return () => {
-      dispatch(deleteItemCart(id))
+      setModalVisible(true)
+      itemCartIdRef.current = id
     }
+  }
+
+  const handlerCancelDelete = () => {
+    itemCartIdRef.current = null
+    setModalVisible(false)
+  }
+
+  const handlerDeleteItemCart = () => {
+    if(!itemCartIdRef.current) {
+      return;
+    }
+
+    dispatch(deleteItemCart(itemCartIdRef.current))
+    setModalVisible(false)
+    CustomToast.success('item excluido com sucesso!')
   }
 
   const handlerSaveBet = async () => {
@@ -59,7 +79,7 @@ export function Cart () {
           data={cart.items}
           renderItem={({item}) => (
             <S.CartItem>
-              <Pressable onPress={handlerDeleteItemCart(item.id)}>
+              <Pressable onPress={handlerConfirmDelete(item.id)}>
                 <S.DeleteIconWrapper>
                   <Feather name='trash' size={24} />
                 </S.DeleteIconWrapper>
@@ -74,6 +94,29 @@ export function Cart () {
           )}
         />
       </S.CartItems>
+      {modalVisible && (
+        <S.ModalWrapper>
+          <Modal
+            transparent
+            animationType='slide'
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(state => !state);
+            }}>
+            <S.ContentWrapper>
+              <S.ModalContent>
+                <S.ModalText>Deseja realmente excluir o item do carrinho ?</S.ModalText>
+                <S.ModalButtonsWrapper>
+                  <Button onPress={handlerDeleteItemCart}>Sim</Button>
+                  <Button variant='outline' onPress={handlerCancelDelete}>
+                    Não
+                  </Button>
+                </S.ModalButtonsWrapper>
+              </S.ModalContent>
+            </S.ContentWrapper>
+          </Modal>
+        </S.ModalWrapper>
+      )}
     </S.Wrapper>
   )
 }

@@ -61,3 +61,45 @@ export const CartItem = styled.View`
 export const DeleteIconWrapper = styled.View`
   margin-right: 28px;
 `
+
+const mixinCenteredFlex = css`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ModalWrapper = styled.View`
+  ${mixinCenteredFlex};
+  `
+
+export const ContentWrapper = styled.View`
+  ${mixinCenteredFlex};
+  background-color: rgba(255,255,255, 0.8);
+`
+
+export const ModalContent = styled.View`
+  width: 80%;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  border-radius: 10px;
+  shadow-opacity: 0.25;
+  shadow-radius: 4px;
+  elevation: 5;
+`
+
+export const ModalText = styled.Text`
+  ${({ theme }) => css`
+    font-family: ${theme.font.bold};
+    color: ${theme.colors.gray600};
+    text-align: center;
+  `}
+`
+
+export const ModalButtonsWrapper = styled.View`
+  width: 100%;
+  margin-top: 32px;
+  flex-direction: row;
+  justify-content: space-evenly;
+`
