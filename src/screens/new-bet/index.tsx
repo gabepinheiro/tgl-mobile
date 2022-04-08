@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNewBet } from '~/hooks/use-new-bet'
 import { RootStackScreenProps } from '~/types'
 
-import { ScrollView } from 'react-native'
+import { Pressable, ScrollView } from 'react-native'
 import { GameButton, Button, NumberButton, CartItemsIcon, LoadingOverlay } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
@@ -22,11 +22,17 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
     handlerClearGame
   } = useNewBet()
 
+  const handlerOpenCart = () => {
+    navigation.navigate('Cart')
+  }
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: ({ tintColor }) => {
         return (
-          <CartItemsIcon quantity={0} color={tintColor ? tintColor : '#fff'} />
+          <Pressable onPress={handlerOpenCart}>
+            <CartItemsIcon quantity={0} color={tintColor ? tintColor : '#fff'} />
+          </Pressable>
         )
       }
     })
