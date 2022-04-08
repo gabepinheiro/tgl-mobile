@@ -14,6 +14,7 @@ import {
   Button,
   Center,
   ControlledInput,
+  CustomToast,
   FormContainer,
   LoadingOverlay
 } from '~/components'
@@ -48,8 +49,13 @@ export function Account () {
   }
 
   const handlerSave = async (data: FormData) => {
+    setIsFetching(true)
     try {
+      const updatedUser = await UserService.updateUserAccount(data)
 
+      setUserAccount(updatedUser)
+      setIsFetching(false)
+      CustomToast.success('Conta atualizada com sucesso!')
     } catch (error) {
 
     }

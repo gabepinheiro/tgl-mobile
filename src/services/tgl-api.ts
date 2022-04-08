@@ -77,5 +77,14 @@ export const UserService = {
       name: res.data.name,
       email: res.data.email
     }
+  },
+
+  async updateUserAccount (account: UserAccount): Promise<UserAccount> {
+    const res = await api.put('/user/update', account)
+
+    return {
+      name: res.data.name,
+      email: res.data.email
+    }
   }
 }
