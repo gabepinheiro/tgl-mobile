@@ -69,31 +69,36 @@ export function Cart () {
       </S.CartTotalWrapper>
 
       <Button onPress={handlerSaveBet}>Save</Button>
-
-      <S.CartItems>
-        <S.HeadingCartItemsWrapper>
-          <S.HeadingSecondary>Items</S.HeadingSecondary>
-        </S.HeadingCartItemsWrapper>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={cart.items}
-          renderItem={({item}) => (
-            <S.CartItem>
-              <Pressable onPress={handlerConfirmDelete(item.id)}>
-                <S.DeleteIconWrapper>
-                  <Feather name='trash' size={24} />
-                </S.DeleteIconWrapper>
-              </Pressable>
-              <GameCard
-                numbers={item.numbers.join(',')}
-                price={item.price}
-                color={item.color}
-                type={item.type}
-                />
-            </S.CartItem>
+        <S.CartItems>
+          <S.HeadingCartItemsWrapper>
+            <S.HeadingSecondary>Items</S.HeadingSecondary>
+          </S.HeadingCartItemsWrapper>
+          {!cart.items.length && (
+            <S.Text>Nenhum item adicionado no carrinho!</S.Text>
           )}
-        />
-      </S.CartItems>
+          {!!cart.items.length && (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={cart.items}
+              renderItem={({item}) => (
+                <S.CartItem>
+                  <Pressable onPress={handlerConfirmDelete(item.id)}>
+                    <S.DeleteIconWrapper>
+                      <Feather name='trash' size={24} />
+                    </S.DeleteIconWrapper>
+                  </Pressable>
+                  <GameCard
+                    numbers={item.numbers.join(',')}
+                    price={item.price}
+                    color={item.color}
+                    type={item.type}
+                    />
+                </S.CartItem>
+              )}
+            />
+          )}
+        </S.CartItems>
+
       {modalVisible && (
         <S.ModalWrapper>
           <Modal

@@ -1,5 +1,11 @@
 import styled, { css } from 'styled-components/native'
 
+const mixinCenteredFlex = css`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
+
 export const Wrapper = styled.View`
   flex: 1;
   padding: 0 16px;
@@ -21,12 +27,6 @@ export const HeadingPrimary = styled.Text`
   `}
 `
 
-export const CartTotalWrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 26px 0;
-`
-
 export const HeadingSecondary = styled.Text`
   ${mixinHeading}
   font-size: 22px;
@@ -39,6 +39,21 @@ export const HeadingTertiary = styled.Text`
     font-style: italic;
     font-size: 24px;
   `}
+`
+
+export const Text = styled.Text`
+  ${({ theme }) => css`
+    font-family: ${theme.font.bold};
+    color: ${theme.colors.gray600};
+    text-align: center;
+    font-size: 18px;
+  `}
+`
+
+export const CartTotalWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 26px 0;
 `
 
 export const CartItems = styled.View`
@@ -60,12 +75,6 @@ export const CartItem = styled.View`
 
 export const DeleteIconWrapper = styled.View`
   margin-right: 28px;
-`
-
-const mixinCenteredFlex = css`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
 `
 
 export const ModalWrapper = styled.View`
