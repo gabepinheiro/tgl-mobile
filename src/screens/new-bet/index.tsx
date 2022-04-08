@@ -13,7 +13,13 @@ type NewBetScreenProps = RootStackScreenProps<'NewBet'>
 export function NewBet ({ navigation }: NewBetScreenProps) {
   const {
     games,
-    isFetching
+    isFetching,
+    numbers,
+    selectedGame,
+    handlerSelectGame,
+    handlerToggleNumber,
+    handlerCompleteGame,
+    handlerClearGame
   } = useNewBet()
 
   useEffect(() => {
@@ -26,8 +32,8 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
     })
   }, [navigation])
 
-  const numbers =
-    new Array(60).fill(null).map((_, index) => index + 1)
+  const numbersButtons =
+    new Array(selectedGame?.range).fill(null).map((_, index) => index + 1)
 
   if (isFetching) {
     return <LoadingOverlay />
@@ -37,17 +43,18 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
     <S.Wrapper>
       <S.HeadingPrimaryWrapper>
         <S.HeadingPrimaryTextMain>New bet {' '}</S.HeadingPrimaryTextMain>
-        <S.HeadingPrimaryTextSub>for mega-sena</S.HeadingPrimaryTextSub>
+        <S.HeadingPrimaryTextSub>for {selectedGame?.type}</S.HeadingPrimaryTextSub>
       </S.HeadingPrimaryWrapper>
 
       <S.HeadingSecondary>Choose game</S.HeadingSecondary>
       <S.ButtonsWrapper>
         <S.ButtonsScrollView horizontal>
-          {games.map(({ color, type }) => (
-            <S.ButtonItem>
+          {games.map(({ color, type, id }) => (
+            <S.ButtonItem key={id}>
               <GameButton
                 color={color}
-                onPress={() => {}}
+                selected={id === selectedGame?.id}
+                onPress={handlerSelectGame(id)}
               >
                 {type}
               </GameButton>
@@ -58,8 +65,7 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
 
       <S.HeadingSecondary>Fill your bet</S.HeadingSecondary>
       <S.Paragraph>
-        Mark as many numbers as you want up to a maximum of 50.
-        Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
+        {selectedGame?.description}
       </S.Paragraph>
 
       <S.ButtonsWrapper>
@@ -70,19 +76,29 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
             }>Add to cart</Button>
           </S.ButtonItem>
           <S.ButtonItem>
-            <Button variant='outline'>Complete game</Button>
+            <Button variant='outline' onPress={handlerCompleteGame}>
+              Complete game
+            </Button>
           </S.ButtonItem>
           <S.ButtonItem>
-            <Button variant='outline'>Clear game</Button>
+            <Button variant='outline' onPress={handlerClearGame}>
+              Clear game
+            </Button>
           </S.ButtonItem>
         </S.ButtonsScrollView>
       </S.ButtonsWrapper>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <S.NumberButtonsWrapper>
-            {numbers.map(number => (
+            {numbersButtons.map(number => (
               <S.NumberButtonItem key={number}>
-                <NumberButton number={number} />
+                <NumberButton
+                  number={number}
+                  onPress={handlerToggleNumber(number)}
+                  color={numbers.includes(number)
+                    ? selectedGame?.color
+                    : undefined}
+                 />
               </S.NumberButtonItem>
             ))}
           </S.NumberButtonsWrapper>

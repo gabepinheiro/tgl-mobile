@@ -22,7 +22,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <S.Wrapper
-      onPress={() => {}}
+      onPress={onPress}
       style={({ pressed }) => pressed && {opacity: 0.5}}
     >
       <S.Container
