@@ -1,10 +1,26 @@
-import { GameButton, Button, NumberButton } from '~/components'
+import { useEffect } from 'react'
+import { ScrollView } from 'react-native'
+import { RootStackScreenProps } from '~/types'
+
+import { GameButton, Button, NumberButton, CartItemsIcon } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
-import { ScrollView } from 'react-native'
 
-export function NewBet () {
+type NewBetScreenProps = RootStackScreenProps<'NewBet'>
+
+export function NewBet ({ navigation }: NewBetScreenProps) {
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: ({ tintColor }) => {
+        return (
+          <CartItemsIcon quantity={0} color={tintColor ? tintColor : '#fff'} />
+        )
+      }
+    })
+  }, [navigation])
+
   const numbers =
     new Array(60).fill(null).map((_, index) => index + 1)
 
