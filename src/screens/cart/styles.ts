@@ -74,7 +74,7 @@ export const CartItem = styled.View`
 `
 
 export const DeleteIconWrapper = styled.View`
-  margin-right: 28px;
+  margin-right: 18px;
 `
 
 export const ModalWrapper = styled.View`

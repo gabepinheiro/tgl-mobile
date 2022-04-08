@@ -1,3 +1,4 @@
+import { getCurrencyFormatted } from '~/utils'
 import * as S from './styles'
 
 type GameCardProps = {
@@ -15,13 +16,14 @@ export const GameCard = ({
   color,
   type
 }: GameCardProps) => {
+  console.log(price)
   return (
     <S.Wrapper color={color}>
       <S.Numbers>{numbers}</S.Numbers>
-      {date && <S.DatePrice>{date} - ({price})</S.DatePrice>}
+      {date && <S.DatePrice>{date} - ({getCurrencyFormatted(price)})</S.DatePrice>}
       <S.TypeName color={color}>
         {type} {' '}
-        {!date && <S.DatePrice>R$ 2,50</S.DatePrice>}
+        {!date && <S.DatePrice>{getCurrencyFormatted(price)}</S.DatePrice>}
       </S.TypeName>
     </S.Wrapper>
   )

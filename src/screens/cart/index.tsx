@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks'
 import { clearCart, deleteItemCart, selectCart } from '~/store/features/cart-slice'
 import { BetsService } from '~/services/tgl-api'
 import { AxiosError } from 'axios'
+import { getCurrencyFormatted } from '~/utils'
 
 import { FlatList, Pressable, Modal } from 'react-native'
 import { Button, CustomToast, GameCard } from '~/components'
@@ -65,7 +66,7 @@ export function Cart () {
       <S.HeadingPrimary>Cart</S.HeadingPrimary>
       <S.CartTotalWrapper>
         <S.HeadingSecondary>Cart Total</S.HeadingSecondary>
-        <S.HeadingTertiary>{cart.totalValue}</S.HeadingTertiary>
+        <S.HeadingTertiary>{getCurrencyFormatted(cart.totalValue)}</S.HeadingTertiary>
       </S.CartTotalWrapper>
 
       <Button onPress={handlerSaveBet}>Save</Button>
