@@ -7,7 +7,7 @@ import { RootStackScreenProps } from '~/types'
 import { getCurrencyFormatted } from '~/utils'
 
 import { FlatList, Pressable, Modal } from 'react-native'
-import { Button, CustomToast, GameCard } from '~/components'
+import { Button, CustomToast, GameCard, LoadingOverlay } from '~/components'
 import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
@@ -15,6 +15,7 @@ import * as S from './styles'
 type CartScreenProps = RootStackScreenProps<'Cart'>
 
 export function Cart ({ navigation }: CartScreenProps) {
+  const [isSaving, setIsSaving] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
   const itemCartIdRef = useRef<string | null>(null)
 
@@ -44,6 +45,7 @@ export function Cart ({ navigation }: CartScreenProps) {
   }
 
   const handlerSaveBet = async () => {
+    setIsSaving(true)
     try {
       const newBet = {
         games: cart.items.map(item => ({
@@ -53,6 +55,7 @@ export function Cart ({ navigation }: CartScreenProps) {
       }
 
       await BetsService.saveBet(newBet)
+      setIsSaving(false)
       CustomToast.success('Aposta realizada com sucesso!')
       dispatch(clearCart())
       navigation.replace('Home')
@@ -63,6 +66,10 @@ export function Cart ({ navigation }: CartScreenProps) {
       }
       CustomToast.error((err as Error).message && 'Erro de conexão')
     }
+  }
+
+  if (isSaving) {
+    return <LoadingOverlay />
   }
 
   return (
