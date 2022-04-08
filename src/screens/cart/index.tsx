@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks'
 import { clearCart, deleteItemCart, selectCart } from '~/store/features/cart-slice'
 import { BetsService } from '~/services/tgl-api'
 import { AxiosError } from 'axios'
+import { RootStackScreenProps } from '~/types'
 import { getCurrencyFormatted } from '~/utils'
 
 import { FlatList, Pressable, Modal } from 'react-native'
@@ -11,7 +12,9 @@ import { Feather } from '@expo/vector-icons'
 
 import * as S from './styles'
 
-export function Cart () {
+type CartScreenProps = RootStackScreenProps<'Cart'>
+
+export function Cart ({ navigation }: CartScreenProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const itemCartIdRef = useRef<string | null>(null)
 
@@ -52,6 +55,7 @@ export function Cart () {
       await BetsService.saveBet(newBet)
       CustomToast.success('Aposta realizada com sucesso!')
       dispatch(clearCart())
+      navigation.replace('Home')
     } catch (err) {
       const error = err as AxiosError<{ message: string }>
       if (error.response) {
