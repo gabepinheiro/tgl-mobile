@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { UserService } from '~/services/tgl-api'
+import { UserAccount } from '~/types'
 
 import {
   KeyboardAvoidingView,
@@ -12,7 +14,8 @@ import {
   Button,
   Center,
   ControlledInput,
-  FormContainer
+  FormContainer,
+  LoadingOverlay
 } from '~/components'
 
 import * as S from './styles'
@@ -28,10 +31,13 @@ const schema = yup.object({
 }).required()
 
 export function Account () {
+  const [isFetching, setIsFetching] = useState(true)
+  const [userAccount, setUserAccount] = useState<UserAccount | null>(null)
   const [showEditAccount, setShowEditAccount] = useState(false)
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema)
@@ -41,8 +47,35 @@ export function Account () {
     setShowEditAccount(state => !state)
   }
 
-  const handlerSave = (data: FormData) => {
+  const handlerSave = async (data: FormData) => {
+    try {
 
+    } catch (error) {
+
+    }
+  }
+
+  useEffect(() => {
+    const fetchMyAccount = async () => {
+      try {
+        const userAccount = await UserService.fetchUserAccount()
+        console.log(userAccount)
+
+        setValue('name', userAccount.name)
+        setValue('email', userAccount.email)
+        setUserAccount(userAccount)
+
+        setIsFetching(false)
+      } catch (error) {
+
+      }
+    }
+
+    fetchMyAccount()
+  }, [])
+
+  if (isFetching) {
+    return <LoadingOverlay />
   }
 
   return (
@@ -50,7 +83,7 @@ export function Account () {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView behavior="height" enabled>
           <S.HeadingPrimary>Account</S.HeadingPrimary>
-          <S.HeadingSecondary>Olá, Gabriel</S.HeadingSecondary>
+          <S.HeadingSecondary>Olá, {userAccount?.name}</S.HeadingSecondary>
 
           <S.ButtonWrapper>
             <Button onPress={handlerTogggleEditAccount}>Edit account</Button>

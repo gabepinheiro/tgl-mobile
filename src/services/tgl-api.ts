@@ -9,7 +9,8 @@ import {
   BetResponseData,
   Bet,
   Game,
-  NewBet
+  NewBet,
+  UserAccount
 } from '~/types/app'
 import { AxiosRequestConfig } from 'axios'
 
@@ -65,5 +66,16 @@ export const GamesService = {
     const res = await api.get('/cart_games')
 
     return res.data.types
+  }
+}
+
+export const UserService = {
+  async fetchUserAccount (): Promise<UserAccount> {
+    const res = await api.get('/user/my-account')
+
+    return {
+      name: res.data.name,
+      email: res.data.email
+    }
   }
 }

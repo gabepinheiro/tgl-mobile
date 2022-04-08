@@ -93,3 +93,9 @@ export type NewBet = {
     numbers: number[]
   }[]
 }
+
+
+export type UserAccount = {
+  name: string
+  email: string
+}
