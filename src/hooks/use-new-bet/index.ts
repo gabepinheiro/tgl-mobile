@@ -1,7 +1,9 @@
 import { useEffect, useReducer, useState } from 'react'
+import { selectCart } from '~/store/features/cart-slice'
+import { useAppSelector } from '../store-hooks'
 import { Game } from '~/types'
-import { GamesService } from '~/services/tgl-api'
 import { CustomToast } from '~/components'
+import { GamesService } from '~/services/tgl-api'
 import { initialState, Reducer } from './reducer'
 
 export const useNewBet = () =>{
@@ -12,6 +14,8 @@ export const useNewBet = () =>{
     remaining,
     selectedGame
   }, newBetDispatch] = useReducer(Reducer, initialState)
+
+  const cart = useAppSelector(selectCart)
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -114,6 +118,7 @@ export const useNewBet = () =>{
 
   return {
     games,
+    cart,
     isFetching,
     numbers,
     remaining,

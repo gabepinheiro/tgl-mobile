@@ -13,6 +13,7 @@ type NewBetScreenProps = RootStackScreenProps<'NewBet'>
 export function NewBet ({ navigation }: NewBetScreenProps) {
   const {
     games,
+    cart,
     isFetching,
     numbers,
     selectedGame,
@@ -31,7 +32,10 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
       headerRight: ({ tintColor }) => {
         return (
           <Pressable onPress={handlerOpenCart}>
-            <CartItemsIcon quantity={0} color={tintColor ? tintColor : '#fff'} />
+            <CartItemsIcon
+              quantity={cart.items.length}
+              color={tintColor ? tintColor : '#fff'}
+            />
           </Pressable>
         )
       }
