@@ -77,3 +77,12 @@ export type Game = {
   max_number: number
   color: string
 }
+
+export type CartItem = {
+  id: string
+  gameId: number
+  numbers: number[]
+  color: string
+  price: number
+  type: string
+}
