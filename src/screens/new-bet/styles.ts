@@ -51,20 +51,21 @@ export const Paragraph = styled.Text`
 `
 
 export const ButtonsWrapper = styled.View`
-  margin: 16px 0;
+  margin: 28px 0;
   min-height: 30px;
 `
 
 export const ButtonsScrollView = styled.ScrollView.attrs({
   horizontal: true,
    contentContainerStyle: {
-     paddingVertical: 8,
+     paddingLeft: 28
     },
   showsHorizontalScrollIndicator: false,
-})``;
+})`
+`;
 
 export const ButtonItem = styled.View`
-  margin-right: 10px;
+  margin-right: 8px;
 `;
 
 export const NumberButtonsWrapper = styled.View`
