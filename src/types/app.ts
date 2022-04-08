@@ -86,3 +86,10 @@ export type CartItem = {
   price: number
   type: string
 }
+
+export type NewBet = {
+  games: {
+    game_id: number
+    numbers: number[]
+  }[]
+}

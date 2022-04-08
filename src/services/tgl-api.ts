@@ -8,7 +8,8 @@ import {
   ChangePasswordData,
   BetResponseData,
   Bet,
-  Game
+  Game,
+  NewBet
 } from '~/types/app'
 import { AxiosRequestConfig } from 'axios'
 
@@ -52,6 +53,10 @@ export const BetsService = {
       price: bet.price,
       createdAt: bet.created_at
     }))
+  },
+
+  saveBet(newBet: NewBet) {
+    return api.post('/bet/new-bet', newBet)
   }
 }
 
