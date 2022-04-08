@@ -1,9 +1,10 @@
 import { useEffect, useReducer, useState } from 'react'
-import { selectCart } from '~/store/features/cart-slice'
-import { useAppSelector } from '../store-hooks'
+import { addItemToCart, selectCart } from '~/store/features/cart-slice'
+import { useAppDispatch, useAppSelector } from '../store-hooks'
 import { Game } from '~/types'
 import { CustomToast } from '~/components'
 import { GamesService } from '~/services/tgl-api'
+import { v4 as uuid } from 'uuid'
 import { initialState, Reducer } from './reducer'
 
 export const useNewBet = () =>{
@@ -16,6 +17,7 @@ export const useNewBet = () =>{
   }, newBetDispatch] = useReducer(Reducer, initialState)
 
   const cart = useAppSelector(selectCart)
+  const appDispatch = useAppDispatch()
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -116,6 +118,37 @@ export const useNewBet = () =>{
     }
   }
 
+  const getMsgRemainingNumbers = () => {
+    const remng = remaining
+    const verbe = remng > 1 ? 'Restam' : 'Resta'
+    const SingularOrPlural = remng > 1 ? 'números' : 'número'
+
+    return `${verbe} ${remng} ${SingularOrPlural} para completar o jogo!`
+  }
+
+  const handlerAddToCart = () => {
+    if (remaining) {
+      return CustomToast.error(getMsgRemainingNumbers())
+    }
+
+    const cartItem = {
+      id: uuid(),
+      gameId: selectedGame?.id!,
+      numbers: numbers.sort((a, b) => a - b),
+      price: selectedGame?.price!,
+      type: selectedGame?.type!,
+      color: selectedGame?.color!,
+    }
+
+    appDispatch(addItemToCart(cartItem))
+
+    CustomToast.success('Jogo adicionado no carrinho.')
+
+    newBetDispatch({
+      type: 'clearGame',
+    })
+  }
+
   return {
     games,
     cart,
@@ -126,6 +159,7 @@ export const useNewBet = () =>{
     handlerSelectGame,
     handlerToggleNumber,
     handlerCompleteGame,
-    handlerClearGame
+    handlerClearGame,
+    handlerAddToCart
   }
 }

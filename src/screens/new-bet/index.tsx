@@ -20,7 +20,8 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
     handlerSelectGame,
     handlerToggleNumber,
     handlerCompleteGame,
-    handlerClearGame
+    handlerClearGame,
+    handlerAddToCart
   } = useNewBet()
 
   const handlerOpenCart = () => {
@@ -40,7 +41,7 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
         )
       }
     })
-  }, [navigation])
+  }, [navigation, cart.items])
 
   const numbersButtons =
     new Array(selectedGame?.range).fill(null).map((_, index) => index + 1)
@@ -81,8 +82,10 @@ export function NewBet ({ navigation }: NewBetScreenProps) {
       <S.ButtonsWrapper>
         <S.ButtonsScrollView horizontal>
           <S.ButtonItem>
-            <Button icon={
-              <Feather name='shopping-cart' color='#fff' size={17} />
+            <Button
+              onPress={handlerAddToCart}
+              icon={
+                <Feather name='shopping-cart' color='#fff' size={17} />
             }>Add to cart</Button>
           </S.ButtonItem>
           <S.ButtonItem>
